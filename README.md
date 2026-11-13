@@ -46,7 +46,7 @@ We measured this on held-out speed questions. A linear probe reads the answer fr
 - **Bridge:** a spectral bridge maps each clip to 1,024 tokens. It applies a fixed PCA rotation and rescaling computed once from encoder statistics, then a trainable MLP.
 - **Language model:** fully fine-tuned.
 
-**One stage.** After a short bridge-only warm-up (0.6–0.8% of the steps), the bridge and the language model are trained together in a single pass. There are no separate alignment, pre-training or instruction stages. The pass covers 4.53M rows drawn at fixed per-source weights from 175 public sources (4.60M for the ViT-L models).
+**One stage.** After a short bridge-only warm-up (0.6–0.8% of the steps), the bridge and the language model are trained together in one continuous stage. There are no separate alignment, pre-training or instruction stages. The stage draws 4.53M rows at fixed per-source weights from 175 public sources (4.60M for the ViT-L models).
 
 **Counterfactual data.** 33 sources and 509k rows, about 6% of the drawn samples, in six families:
 
