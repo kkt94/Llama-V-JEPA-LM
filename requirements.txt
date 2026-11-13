@@ -1,0 +1,10 @@
+# Versions of the environment this export was built and tested with (Python 3.12.3, CUDA 13.0 build of torch).
+# transformers >= 5 is required (config uses the v5 `rope_parameters` format); other versions are untested.
+torch==2.13.0
+transformers==5.10.4
+safetensors==0.8.0
+tokenizers==0.22.2
+huggingface-hub==1.33.0
+numpy==2.5.2
+jinja2==3.1.6
+eva-decord==0.6.1   # provides the `decord` module used for video decoding
