@@ -4,7 +4,8 @@
 
 Llama-V-JEPA-LM joins a frozen **V-JEPA 2.1 world-model video encoder** to a language model (Qwen3 or Llama, 1B to 8B) and trains it in **one stage** with **counterfactual supervision**. The models read how a scene changes (direction, speed, order, camera motion, state) and lead every size class on eleven video benchmarks with **4.53M public training samples** and **32 visual tokens per frame**.
 
-Weights: [Llama-V-JEPA-LM collection on Hugging Face](https://huggingface.co/collections/kkt94/llama-v-jepa-lm-6af41fb2a548b444c6255d63)
+Weights: [Llama-V-JEPA-LM collection on Hugging Face](https://huggingface.co/collections/kkt94/llama-v-jepa-lm-6af41fb2a548b444c6255d63)  
+Live demo: [Llama-V-JEPA-LM-Llama3.1-8B on Hugging Face Spaces](https://huggingface.co/spaces/kkt94/llama-v-jepa-lm-8b) (runs in the browser)
 
 ---
 
