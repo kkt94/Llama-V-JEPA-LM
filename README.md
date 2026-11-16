@@ -4,6 +4,7 @@
 
 Llama-V-JEPA-LM joins a frozen **V-JEPA 2.1 world-model video encoder** to a language model (Qwen3 or Llama, 1B to 8B) and trains it in **one stage** with **counterfactual supervision**. The models read how a scene changes (direction, speed, order, camera motion, state) and lead every size class on eleven video benchmarks with **4.53M public training samples** and **32 visual tokens per frame**.
 
+Paper: [arXiv:2611.17831](https://arxiv.org/abs/2611.17831)  
 Weights: [Llama-V-JEPA-LM collection on Hugging Face](https://huggingface.co/collections/kkt94/llama-v-jepa-lm-6af41fb2a548b444c6255d63)  
 Live demo: [Llama-V-JEPA-LM-Llama3.1-8B on Hugging Face Spaces](https://huggingface.co/spaces/kkt94/llama-v-jepa-lm-8b) (runs in the browser)
 
@@ -233,13 +234,15 @@ The Hugging Face repositories load the same files through `trust_remote_code=Tru
 
 ## 10. Citation
 
-The entry will be updated when the paper is public.
-
 ```bibtex
-@misc{vjepalm2026,
-  title  = {V-JEPA-LM: Video-Language Models That Read Dynamics Beyond Static, Text-Aligned Representations},
-  author = {Anonymous},
-  year   = {2026}
+@misc{kim2026vjepalm,
+  title         = {V-JEPA-LM: Video-Language Models That Read Dynamics Beyond Static, Text-Aligned Representations},
+  author        = {Kim, Keuntae and Kim, Dongjun and Choi, Yong Suk},
+  year          = {2026},
+  eprint        = {2611.17831},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2611.17831}
 }
 ```
 
