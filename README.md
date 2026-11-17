@@ -6,6 +6,8 @@
 [![Papers with Code: SOTA on TVBench](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49318&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49318)
 [![Papers with Code: SOTA on Vinoground (text score)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49319&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49319)
 [![Papers with Code: SOTA on Vinoground (video score)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49320&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49320)
+[![Papers with Code: #3 on MotionBench](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49317&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49317)
+[![Papers with Code: #4 on NExT-QA](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49316&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49316)
 
 **Video-language models that read dynamics beyond static, text-aligned representations.**
 
