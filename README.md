@@ -2,6 +2,10 @@
 
 [![Papers with Code: SOTA on MVP](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=48843&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=48843)
 [![Papers with Code: SOTA on TOMATO](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=48842&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=48842)
+[![Papers with Code: SOTA on TempCompass (MCQ)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49315&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49315)
+[![Papers with Code: SOTA on TVBench](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49318&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49318)
+[![Papers with Code: SOTA on Vinoground (text score)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49319&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49319)
+[![Papers with Code: SOTA on Vinoground (video score)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=49320&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=49320)
 
 **Video-language models that read dynamics beyond static, text-aligned representations.**
 
