@@ -1,5 +1,8 @@
 # Llama-V-JEPA-LM: Technical Report
 
+[![Papers with Code: SOTA on MVP](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=48843&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=48843)
+[![Papers with Code: SOTA on TOMATO](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge.svg?eval=48842&live=1)](https://paperswithcode.co/api/v1/papers/2611.17831/leaderboard-badge-link?eval=48842)
+
 **Video-language models that read dynamics beyond static, text-aligned representations.**
 
 Llama-V-JEPA-LM joins a frozen **V-JEPA 2.1 world-model video encoder** to a language model (Qwen3 or Llama, 1B to 8B) and trains it in **one stage** with **counterfactual supervision**. The models read how a scene changes (direction, speed, order, camera motion, state) and lead every size class on eleven video benchmarks with **4.53M public training samples** and **32 visual tokens per frame**.
