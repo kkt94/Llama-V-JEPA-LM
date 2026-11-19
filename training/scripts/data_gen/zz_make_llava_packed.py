@@ -1,4 +1,4 @@
-"""(10-23, user: go) LLaVA-Video rows packed per video: the rows of ONE video from the SAME source file (same question generator; the oe
+"""LLaVA-Video rows packed per video: the rows of ONE video from the SAME source file (same question generator; the oe
 and mc files of NExT-QA / PT / ANetQA hold the same questions, so they are never packed together) go into one sequence, so the clip is
 decoded and encoded once for all of them. Caption rows stay single (a caption can answer the questions after it). Rows are shuffled per
 video (seeded) and filled greedily up to a text budget (Qwen3 tokens of the contents + 8 per message, <= BUDGET; the 1024 video slots and

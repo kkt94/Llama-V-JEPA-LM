@@ -1,4 +1,4 @@
-"""(10-26, user: EgoDex grew to 18 % of the mix - cut it down, keep what is needed) one EgoDex set from all splits (test, part1-5, extra)
+"""one EgoDex set from all splits (test, part1-5, extra)
 for nx13: the MEASURED-dynamics questions first, task naming (appearance-led, 101 classes) only as a small share:
  hdir (hand direction on screen, measured wrist)  180k, answers balanced    hmore (which hand moves more, 3D wrist path) 100k, balanced
  turn (camera wearer's yaw)                        all                       task + "what am I doing" (task naming)          50k, balanced by task

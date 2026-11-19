@@ -1,4 +1,4 @@
-"""(10-24, user: keep it video-only, but put recognition into the questions we build) Recognition questions on videos, answers from human labels:
+"""Recognition questions on videos, answers from human labels:
   ssv2_obj    : SSv2 train (crowd-written object names in the label placeholders): which object is handled. Distractors: frequent object names whose
                 head word and words differ from every object named for that video
   chego_scene : Charades-Ego (first- and third-person): where the video was recorded (16 human-labelled room types)

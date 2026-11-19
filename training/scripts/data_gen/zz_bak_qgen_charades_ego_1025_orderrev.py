@@ -1,4 +1,4 @@
-"""(10-24, user: build questions from all the open data) Charades-Ego (AI2; paired first-person / third-person recordings of the same scripts,
+"""Charades-Ego (AI2; paired first-person / third-person recordings of the same scripts,
 157 human-labelled action classes with time spans; train split only). Three kinds, answers from the human labels:
   act   : what the person (first-person: "the camera wearer") does in one labelled span; distractors share the verb or the object of the true
           class and are NOT labelled anywhere in that span (multi-label videos)

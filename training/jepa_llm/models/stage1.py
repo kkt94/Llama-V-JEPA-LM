@@ -256,7 +256,7 @@ class _RecLang(nn.Module):
         self.norm = nn.LayerNorm(hidden) if self.norm_mode == "ln" else nn.BatchNorm1d(hidden, affine=False, momentum=0.01) if self.norm_mode == "bn" else nn.Identity()
         self.kv = nn.Linear(hidden, 2 * d)
         if linear:
-            # (11-02, user: the dynamics loss preserved V-JEPA's information but it never reached the answers) a LINEAR read-out instead of
+            # a LINEAR read-out instead of
             # the 2-layer MLP: the MLP could decode information the LLM kept in a tangled, non-linear form that lm_head - a linear read-out of
             # the same states - cannot use; with one linear map the preserved information has to be linearly explicit, as the answer reads it
             self.out = nn.Sequential(nn.Linear(d, kin))
@@ -487,7 +487,7 @@ class _RecLang(nn.Module):
 
 
 class _StructKeep(nn.Module):
-    """(11-01, user: no predictor / head; V-JEPA's output must reach the LLM without loss, stay alive to the last layer, and be used)
+    """
     Head-free structure preservation at the video positions. At each listed LLM layer (and the final one), per clip, the linear CKA between
       the LLM states H [K, H] and V-JEPA's tokens X [K, k]                       (what is where: the clip's content geometry), and
       the change over one moment dH = H[t+1] - H[t] and dX (every direction of dX scaled by its own std, so the motion's small directions
@@ -516,7 +516,7 @@ class _StructKeep(nn.Module):
 
 
 class _ReadStruct(nn.Module):
-    """(11-01 v2, user: the information must reach the LLM, stay alive and be USED; no predictor / head) Head-free READ-OUT of the clip's
+    """Head-free READ-OUT of the clip's
     dynamics by the language stream. _StructKeep (v1) held V-JEPA's geometry at the video positions of every layer (CKA 0.96 vs 0.63 without
     it) but cost -6 points at 1000 steps (MVP 14 vs 30, Vinoground text 27 vs 51): pinning the video positions to the input geometry stops
     the LLM from turning them into something its text can use. Here the video positions are free; the constraint is on the FIRST TEXT
@@ -577,7 +577,7 @@ class _ReadStruct(nn.Module):
 
 
 class _CfUse(nn.Module):
-    """(11-01 v3, user: not MORE preservation - make the LLM USE what V-JEPA gives; no predictor / head, no second forward pass)
+    """
     Dynamics counterfactual inside the ONE forward pass, by substitution. A few rows of the batch enter with their clip's V-JEPA moments
     shuffled (every token kept, its time stamp kept, the moments' contents permuted: identical appearance, no coherent dynamics); no row is
     added. What such a row must answer depends on its question:
@@ -593,8 +593,7 @@ class _CfUse(nn.Module):
 
 
 class _DynAns(nn.Module):
-    """(11-01 v4, user: the dynamics is preserved (rec2) but not USED - change the training loss so that it is; no new predictor, no data /
-    structure / frame change) The dynamics loss moved to WHERE THE ANSWER IS PRODUCED. rec2 read V-JEPA back from any text position after the
+    """The dynamics loss moved to WHERE THE ANSWER IS PRODUCED. rec2 read V-JEPA back from any text position after the
     video through a cross-attention + MLP decoder: the LLM could park the clip in question tokens or in directions the output never reads, and
     76 % of its target was static appearance. Here:
       readout = the final-layer state at the answer positions (mean over the row's answer tokens) - the very vector lm_head maps to the answer;
@@ -625,8 +624,7 @@ class _DynAns(nn.Module):
 
 
 class _RouteKeep(nn.Module):
-    """(11-01 v5, user: the dynamics is in the LLM but not USED for the benchmarks; change only the training loss; no predictor / head, no data /
-    structure / frame change, one forward pass) The dynamics loss on HOW THE LLM READS THE VIDEO, not on what a state holds (holding it -
+    """The dynamics loss on HOW THE LLM READS THE VIDEO, not on what a state holds (holding it -
     rec2, struct, ans - never raised the benchmarks; ans even cost the fine paired ones). Following an object through a clip (shuffle,
     rotation, counting, order) is a routing problem: a token of moment t+1 must read the tokens of moment t where ITS content was.
     V-JEPA knows that correspondence: teacher = softmax over the 64 cells of moment t of cos(x[t+1, c], x[t, c']) / tau (equalised states).
@@ -655,7 +653,7 @@ class _RouteKeep(nn.Module):
 
 
 class _VFloor(nn.Module):
-    """(11-02, user: V-JEPA's output must reach the LLM without loss and stay alive to the last layer, and be USED) The answers read the video
+    """The answers read the video
     through the video TOKENS at every layer (attention), not through a copy in the text stream (rec2 kept such a copy: preserved, never used).
     In a model without any dynamics loss the V-JEPA structure of the video tokens decays with depth (state CKA 0.77 -> 0.63, motion 0.59 ->
     0.40). This loss keeps the INFORMATION at every layer without fixing the geometry (struct, which pinned the geometry, and the relational
@@ -700,7 +698,7 @@ class _VFloor(nn.Module):
 
 
 class _DynNext(nn.Module):
-    """(10-31) dynamics as NEXT-MOMENT PREDICTION inside the LLM (user: keep the dynamics loss, make it count). The LLM is causal: its state
+    """(10-31) dynamics as NEXT-MOMENT PREDICTION inside the LLM . The LLM is causal: its state
     at the video position of moment t, cell c has seen moments <= t only. From that state a training-only head predicts the CHANGE of
     V-JEPA's state at the same cell from t to t+1 (x[t+1,c] - x[t,c]), every direction normalised by its own variance of change (the
     clip-constant appearance, 76 % of the state's variance, is not a target; small and large directions count the same).
@@ -1406,7 +1404,7 @@ class Stage1Model(nn.Module):
             self.vpres_at, self.vpres_w = [], 0.0
             if vp_:
                 self.vpres_at = [nl_ // 2 if a == "mid" else a for a in vp_.get("at", ["mid", "final"])]
-                if vp_.get("every"):                   # (10-27 v2, user: "do it decisively") every k-th layer's output + the final representation
+                if vp_.get("every"):                   # every k-th layer's output + the final representation
                     k_ = int(vp_["every"]); self.vpres_at = list(range(k_ - 1, nl_ - 1, k_)) + ["final"]
                 self.vpres_w = float(vp_.get("weight", 0.1))
                 self.dyn_head.vp = nn.ModuleList([nn.Linear(hidden, int((spectral or {}).get("k", 2048))) for _ in self.vpres_at])

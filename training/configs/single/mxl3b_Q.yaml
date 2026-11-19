@@ -1,4 +1,4 @@
-# (11-08 08:58, user: VRAM 30/80 GB -> larger batch + lr) batch_per_gpu 5->10 (global 300), max_steps 30187->15094 (same 4.53M samples), lr x sqrt2
+# batch_per_gpu 5->10 (global 300), max_steps 30187->15094 (same 4.53M samples), lr x sqrt2
 #   (lr_llm 1.2e-5->1.7e-5, lr_new 2e-4->2.83e-4), text replay every 2->1 with weight 0.3->0.15 (same rows, same text:video gradient ratio).
 #   batch-5 start kept in runs/zz_mxl3b_Q_b5_aborted.
 # (11-06 20:10) mxl3b_Q: mx4b_Q with the LLM = Llama-3.2-3B-Instruct, own template, strip_think, own text replay (logs/zz_make_mxl3b_cfg.py)

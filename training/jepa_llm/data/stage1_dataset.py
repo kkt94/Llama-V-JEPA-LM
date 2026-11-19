@@ -337,7 +337,7 @@ _CC_STOP = set("something a an the with your of to up down in on into onto from 
 
 
 def concept_groups(ds, msgs):
-    """(10-25) concept readout: per multiple-choice turn (user lines 'A. ...', assistant answer 'X' / 'X.'), the first token of every content
+    """(10-25) concept readout: per multiple-choice turn , the first token of every content
     word of every option (lower case, letters only, stop words / yes / no dropped: what the question gives them their meaning) and the gold index. Turns whose options have identical word sets
     (permutations, e.g. order questions) carry no word-level signal and are left out."""
     cache = ds.__dict__.setdefault("_cc_cache", {}); out = []

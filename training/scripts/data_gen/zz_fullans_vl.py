@@ -1,4 +1,4 @@
-"""(10-30 17:20, user option 2 data, v2) full-sentence answers written by a VIDEO teacher: Qwen3-VL-8B-Instruct (vLLM) watches the clip
+"""full-sentence answers written by a VIDEO teacher: Qwen3-VL-8B-Instruct (vLLM) watches the clip
 (16 frames over the item's window), is told the question and its verified correct answer, and writes the answer a helpful assistant gives:
 the direct answer as a complete sentence, then 1-2 sentences of what is visible in the video that supports it. Same item selection as
 zz_fullans_gen.py (A_items sources <= 2500 each + 6 types of the verified GRPO pool <= 3000 each; no eval videos).

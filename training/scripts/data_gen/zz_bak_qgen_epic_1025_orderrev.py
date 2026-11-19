@@ -1,4 +1,4 @@
-"""(10-24, user: build questions from all the open data) EPIC-KITCHENS-100 (first-person kitchen video, 76,885 human-labelled action spans
+"""EPIC-KITCHENS-100 (first-person kitchen video, 76,885 human-labelled action spans
 with a verb and a noun class; train + validation annotations). Videos are used from prep/epic_384_15fps/Pxx/Pxx_yy.mp4 (transcoded by
 logs/zz_prep_epic.sh as the download lands). Spans shorter than 2 s are widened symmetrically to 2 s. Four kinds, answers from the labels:
   act   : "verb noun" of the span; distractors: two with the same noun and another verb, one with the same verb and another noun, all seen

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Data boost (2026-10-09): SSv2 labels (licence accepted by the user; public link works after login) and the CLEVRER TRAIN
+# Data boost (2026-10-09): SSv2 labels (licence accepted on the dataset site; public link works after login) and the CLEVRER TRAIN
 # split (videos, QA incl. predictive/counterfactual, object trajectory + collision annotations). CLEVRER validation is
 # NOT downloaded for training: MVP evaluates on CLEVRER validation videos.
 source /data/llama_vjepa_lm/scripts/env.sh

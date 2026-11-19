@@ -1,4 +1,4 @@
-"""(10-24, user: build questions from all the open data) Kinetics-700-2020 (human action classes, 10 s clips, CVDF mirror) and Countix
+"""Kinetics-700-2020 (human action classes, 10 s clips, CVDF mirror) and Countix
 (human repetition counts on Kinetics clips; Molmo2-Countix csv, Ai2's mapping to Kinetics-700 files). Answers from the human labels.
   k700_act   : which action; distractors share a content word with the true class when possible (e.g. "playing guitar" / "playing ukulele"),
                else random; one question per downloaded train clip

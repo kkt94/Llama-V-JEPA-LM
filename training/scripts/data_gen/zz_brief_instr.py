@@ -1,4 +1,4 @@
-"""(10-30 21:40, user approved) brevity instruction for terse answers in the base mix: every user turn that is an open question (no options,
+"""brevity instruction for terse answers in the base mix: every user turn that is an open question (no options,
 no instruction about the answer's length) and whose answer has <= 3 words gets "\\nAnswer with a single word or phrase." appended (LLaVA's
 convention), so the model gives one-word answers only when asked; together with the full-sentence answer data, un-instructed open questions
 get full answers. Answers are unchanged. Writes changed copies of the affected manifests to manifests/stage1/mx2b_brief/<name>.parquet

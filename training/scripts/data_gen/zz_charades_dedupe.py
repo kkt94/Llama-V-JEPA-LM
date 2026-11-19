@@ -1,4 +1,4 @@
-"""(10-23, user: STAR train approved, but never the evaluation videos themselves) which Charades videos appear in ANY evaluation set, by
+"""which Charades videos appear in ANY evaluation set, by
 content: a 64-bit difference hash of frames. Charades: every video at 4 fps; evaluation: every video of manifests/eval/**/*.jsonl at 5
 points. An evaluation video is matched to a Charades video when >= 2 of its 5 frames are within 6 bits of that video's frames (4 x 16-bit
 chunks: candidates share a chunk, so recall is complete up to 3 bits). Union with the ids visible in file names. -> logs/zz_charades_eval_ids_content.json

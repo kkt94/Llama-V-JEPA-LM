@@ -1,4 +1,4 @@
-"""(10-26, user: target the physics benchmarks too - PhysBench dynamics / property, MMWorld, IntPhys-style prediction) physical-event
+"""physical-event
 questions from the CLEVRER SIMULATION ground truth (annotation_train: per-frame location / velocity, collision frames, object properties) in
 formats the existing `clevrer` source (CLEVRER's own question programs) does not use. 128 frames at 25 fps per video.
  phys_collide   "do the X and the Y collide?"            yes: a recorded collision pair; no: two objects in view that never collide (50/50)

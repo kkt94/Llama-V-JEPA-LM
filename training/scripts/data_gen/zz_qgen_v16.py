@@ -1,4 +1,4 @@
-"""(10-26, user: no weak benchmark may fail because of its question TYPE / FORMAT - logs/zz_format_gap.py) the benchmark question / option
+"""the benchmark question / option
 forms that our mix lacked, built from labels / measurements / transformations we already have (no new answers are invented):
  nav_vln    MVBench egocentric_navigation form: 'This is a navigation video of an agent following instruction: "..." What is the next action
             it should take?'  Move forward / Turn left and move forward / Turn right and move forward / Stop.  EPIC Fields camera poses

@@ -1,7 +1,7 @@
 #!/bin/bash
 # usage: transcode_one.sh <in.mp4> <out.mp4> <fps|native> <gop>
 # Short side -> 384 (aspect kept, no crop), H.264 CRF 23, no audio. Writes .part then renames, so reruns skip finished files.
-# (10-26, user: much faster) x264 preset ultrafast (was veryfast; 1.5x, larger files); EgoDex (1080p MPEG-4 part 2) decoded at half resolution
+# x264 preset ultrafast (was veryfast; 1.5x, larger files); EgoDex (1080p MPEG-4 part 2) decoded at half resolution
 # (-lowres 1: 960x540, still above the 384 output) - 7.3 s -> 3.2 s per 39 s clip
 in=$1; out=$2; fps=$3; gop=$4; FF=/data/llama_vjepa_lm/tools/ffmpeg
 [ -s "$out" ] && exit 0

@@ -1,4 +1,4 @@
-"""(10-23, user approved: STAR train split, but never the evaluation videos) STAR train (45.7k situated-reasoning questions on Charades
+"""STAR train (45.7k situated-reasoning questions on Charades
 clips: interaction, sequence, prediction, feasibility) -> multiple-choice training manifest. Every Charades video that appears in ANY
 evaluation set - by name or by frame content (logs/zz_charades_dedupe.py -> logs/zz_charades_eval_ids_content.json) - is dropped with all
 its questions. Options are shuffled per question (seeded) so the answer letter is balanced. Clip = the question's [start, end] window.

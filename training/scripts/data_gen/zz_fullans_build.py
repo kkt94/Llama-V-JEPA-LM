@@ -1,4 +1,4 @@
-"""(10-30 18:25, user: round-4 SFT = round-3 recipe + full-sentence answer data) training manifests from runs/cot/fullans_vl_*of*.jsonl
+"""training manifests from runs/cot/fullans_vl_*of*.jsonl
 (video teacher, kept rows only, one row per item): normal-mode turn, user = "<|jepa_evidence|>\\n{question}" (no "few words" instruction, no
 options), assistant = the full answer. One parquet per prep_root in runs/cot/train4/, plus repo/configs/single/cot2b4_Q.yaml (+ _eval):
 cot2b3_Q with every source weight x (1 - F_W) and the F sources at F_W total (by rows); 24 GPUs x 12 = 288 / step, 1000 steps (the same

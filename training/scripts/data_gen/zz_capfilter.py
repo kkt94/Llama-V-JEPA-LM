@@ -1,4 +1,4 @@
-"""(10-27, user: "filter repetitive or unfinished captions") nx13 generation probe: video descriptions loop in 46 % of answers at 8k
+"""nx13 generation probe: video descriptions loop in 46 % of answers at 8k
 (nx12 25 %). Scan every assistant turn of every nx13 source; a turn of >= 25 words is flagged when
  repeat   share of repeated word 4-grams > 0.3 (the same measure as logs/zz_gen_probe.py)
  cut      it stops mid-sentence: ends with , ; : - or its last word is a function word (and, the, of, with, ...). A complete sentence that only

@@ -1,6 +1,6 @@
 """(10-25) EgoDex (Apple, CC BY-NC-ND; Vision Pro first-person, 30 fps, per-frame MEASURED camera + 25-joint hand poses). Answers only from the
 collection-protocol task name and the measured poses; the description / llm_* attributes are NOT used. Convention checked by projecting the wrist
-and fingertips onto the frames (camera looks along +z, y down; logs/zz_qgen_egodex.py header, scratchpad egodex_peek/proj.jpg).
+and fingertips onto the frames (camera looks along +z, y down; logs/zz_qgen_egodex.py header).
  task   - which of the 101 recorded tasks (whole episode, <= 12 s window)
  hdir   - how one hand (left/right named) moves on screen over 2 s: left / right / up / down / stays still (image displacement of the wrist,
           moving: dominant axis > 15 % of image width and > 2x the other axis; still: < 3 %)

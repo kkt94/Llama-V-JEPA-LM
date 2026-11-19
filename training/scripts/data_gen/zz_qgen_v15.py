@@ -1,4 +1,4 @@
-"""(10-26, user: next run with question formats AND domains as diverse as possible) one human label, many question / answer forms, over the
+"""one human label, many question / answer forms, over the
 label sources that so far had ONE form (4-way multiple choice): Kinetics-700 classes (web human actions), Something-Something v2 filled
 templates (hand-object), SSv2 objects, Language-Table instructions (real-robot tabletop; crowd-written, with a hard negative instruction).
  open      short free answer = the label ("Answer in a few words.")                                  k700, ssv2_obj, language_table (ssv2 has one)

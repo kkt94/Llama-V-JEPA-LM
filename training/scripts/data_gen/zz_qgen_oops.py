@@ -1,4 +1,4 @@
-"""(10-27, user item 2) Oops "unexpected part" localisation (weak: TVBench unexpected_action 27). Human labels only: Oops (Epstein et al. 2020)
+"""Oops "unexpected part" localisation (weak: TVBench unexpected_action 27). Human labels only: Oops (Epstein et al. 2020)
 annotations/transition_times.json = the moment the action turns unintentional, marked by 3 annotators (-1 = not found).
  onset  tau = median of the found times; kept when >= 2 annotators found it and they agree within 1.0 s
  rows   a window of W seconds (W ~ U[3, 8], the SAME distribution for every answer) placed so that tau falls at a chosen relative position
