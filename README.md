@@ -11,9 +11,9 @@
 
 **Video-language models that read dynamics beyond static, text-aligned representations.**
 
-Llama-V-JEPA-LM joins a frozen **V-JEPA 2.1 world-model video encoder** to a language model (Qwen3 or Llama, 1B to 8B) and trains it in **one stage** with **counterfactual supervision**. The models read how a scene changes (direction, speed, order, camera motion, state) and lead every size class on eleven video benchmarks with **4.53M public training samples** and **32 visual tokens per frame**.
+Llama-V-JEPA-LM joins a frozen **V-JEPA 2.1 world-model video encoder** to a language model (Qwen3 or Llama, 1B to 30B) and trains it in **one stage** with **counterfactual supervision**. The models read how a scene changes (direction, speed, order, camera motion, state) and lead every size class on eleven video benchmarks with **4.53M public training samples** and **32 visual tokens per frame**.
 
-Paper: [arXiv:2611.17831](https://arxiv.org/abs/2611.17831)  
+Paper: [arXiv:2611.17831](https://arxiv.org/abs/2611.17831) (covers the 1B–8B models; the 30B model is documented in this report and on its model card)  
 Weights: [Llama-V-JEPA-LM collection on Hugging Face](https://huggingface.co/collections/kkt94/llama-v-jepa-lm-6af41fb2a548b444c6255d63)  
 Live demo: [Llama-V-JEPA-LM-Llama3.1-8B on Hugging Face Spaces](https://huggingface.co/spaces/kkt94/llama-v-jepa-lm-8b) (runs in the browser)
 
@@ -24,8 +24,9 @@ Live demo: [Llama-V-JEPA-LM-Llama3.1-8B on Hugging Face Spaces](https://huggingf
 - **First in every size class.** The 4B model averages **72.14** on twelve scores from eleven video benchmarks. The best open 4B model scores 61.08 and the best open 8B model 64.79. The 2B model averages **66.02** against 52.45 for the best open 2B model.
 - **Strongest on dynamics.** The 4B model scores TOMATO 53.5 (open 4B models at most 36.5), Vinoground video 66.8 (at most 33.8) and SSv2 92.2 (at most 68.3).
 - **Ahead of Meta's V-JEPA video LLMs.** On the six benchmarks Meta reports for its V-JEPA 2 / 2.1 video LLMs (Llama-3.1-8B), our 8B models average 70.0 and 68.2 against 63.3 and 62.8. They use a twentieth of the training data and a ninth of the visual tokens.
-- **Generalizes beyond its training constructions.** On six held-out sets the models average 94.5–96.3. The sets cover unseen speed ratios, an unseen source corpus, unseen combinations and an unseen simulator. Open models score 43.5–55.5 (chance 33.3).
-- **Efficient.** Training is one stage of 229–648 H100-hours. Each clip becomes 1,024 visual tokens at any resolution, so the first token takes 70–182 ms on one H100.
+- **Generalizes beyond its training constructions.** On six held-out sets the models average 94.5–96.3. The sets cover unseen speed ratios, an unseen source corpus, unseen combinations and an unseen simulator. Open models score 43.5–58.3 (chance 33.3).
+- **Scales to a 30B mixture-of-experts model.** Llama-V-JEPA-LM-Qwen3-30B-A3B averages **69.49**, ahead of the four open 30B-class models we evaluated (62.55–66.41), and **95.6** on the held-out sets (47.6–58.3).
+- **Efficient.** Training is one stage of 229–792 H100-hours. Each clip becomes 1,024 visual tokens at any resolution, so the first token takes 70–276 ms on one H100.
 
 ## 2. Model zoo
 
@@ -37,6 +38,7 @@ Live demo: [Llama-V-JEPA-LM-Llama3.1-8B on Hugging Face Spaces](https://huggingf
 | [Llama-V-JEPA-LM-Qwen3-4B](https://huggingface.co/kkt94/Llama-V-JEPA-LM-Qwen3-4B) | Qwen3-4B-Instruct-2507 | V-JEPA 2.1 ViT-g | 5.06 B | **72.14** | **96.3** |
 | [Llama-V-JEPA-LM-Llama3.1-8B](https://huggingface.co/kkt94/Llama-V-JEPA-LM-Llama3.1-8B) | Llama-3.1-8B-Instruct | V-JEPA 2.1 ViT-g | 9.07 B | 70.51 | 96.1 |
 | [Llama-V-JEPA-LM-Qwen3-8B](https://huggingface.co/kkt94/Llama-V-JEPA-LM-Qwen3-8B) | Qwen3-8B | V-JEPA 2.1 ViT-g | 9.23 B | 70.11 | 95.9 |
+| [Llama-V-JEPA-LM-Qwen3-30B-A3B](https://huggingface.co/kkt94/Llama-V-JEPA-LM-Qwen3-30B-A3B) | Qwen3-30B-A3B (mixture of experts) | V-JEPA 2.1 ViT-G | 32.39 B | 69.49 | 95.6 |
 
 Each model card has a quick start, the full per-benchmark table of its size class, inference cost and licence details.
 
@@ -82,6 +84,7 @@ We measured this on held-out speed questions. A linear probe reads the answer fr
 | Qwen3-4B | 30 | 150 | 30,187 | 4.53M | 499 |
 | Llama3.1-8B | 30 | 150 | 30,187 | 4.53M | 596 |
 | Qwen3-8B | 30 | 150 | 30,187 | 4.53M | 648 |
+| Qwen3-30B-A3B | 30, then 28 | 960, then 952 | 4,717 | 4.50M | 792 |
 
 Open video LLMs of these sizes use several stages and 9M–172M samples, with 64–256 visual tokens per frame.
 
@@ -127,12 +130,45 @@ MVB: MVBench, PT: PerceptionTest, TVB: TVBench, TC: TempCompass, TOM: TOMATO, Mo
 | Model | MVB | PT | TVB | TC | TOM | MoB | NQA | MVP | TB | SSv2 | VG-T | VG-V | **Avg** |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | **Llama-V-JEPA-LM-Llama3.1-8B** | 71.9 | 75.0 | 71.8 | 77.6 | 55.5 | 55.9 | 79.0 | 57.6 | 72.3 | 92.3 | 74.2 | **63.0** | **70.51** |
-| **Llama-V-JEPA-LM-Qwen3-8B** | 72.8 | 77.8 | **75.3** | **79.4** | **56.5** | 59.1 | 81.2 | **58.1** | **73.5** | **93.8** | **75.2** | 38.6 | 70.11 |
+| **Llama-V-JEPA-LM-Qwen3-8B** | 72.8 | 77.8 | **75.3** | **79.4** | **56.5** | 59.1 | 81.2 | **58.1** | **73.5** | **93.8** | **75.2** | 38.6\* | 70.11 |
 | PLM-8B | **76.0** | 80.6 | 62.7 | 70.9 | 42.6 | 62.7 | **85.7** | 49.0 | 71.2 | 67.9 | 63.4 | 44.8 | 64.79 |
 | Molmo2-8B | 75.6 | **81.9** | 64.1 | 72.1 | 35.4 | 61.4 | 85.4 | 43.4 | 70.8 | 55.2 | 49.2 | 33.8 | 60.69 |
 | Qwen3-VL-8B | 68.8 | 73.0 | 58.2 | 73.6 | 36.5 | **62.9** | 82.1 | 41.8 | 70.8 | 65.9 | 51.0 | 35.0 | 59.97 |
 | InternVL3.5-8B | 71.0 | 72.7 | 62.7 | 71.0 | 33.6 | 58.1 | 81.5 | 38.8 | 72.1 | 66.7 | 47.2 | 28.4 | 58.65 |
 | VideoLLaMA3-7B | 65.6 | 69.7 | 49.2 | 69.3 | 29.4 | 57.8 | 81.5 | 29.9 | 70.5 | 59.1 | 44.8 | 28.6 | 54.62 |
+
+\* 67.6 when the word *before* in the captions is rephrased, see [Vinoground video and the word *before*](#vinoground-video-and-the-word-before).
+
+### 30B class
+
+Qwen3-30B-A3B is a mixture-of-experts language model with 30.5B parameters, of which about 3.3B are active per token. This model uses the larger V-JEPA 2.1 ViT-G encoder. Qwen3-VL-30B-A3B is the open video LLM built on the same language model.
+
+| Model | MVB | PT | TVB | TC | TOM | MoB | NQA | MVP | TB | SSv2 | VG-T | VG-V | **Avg** |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| **Llama-V-JEPA-LM-Qwen3-30B-A3B** | 73.9 | 78.0 | **75.0** | **79.1** | **57.5** | 59.7 | 82.2 | **58.2** | 75.8 | **93.1** | **72.8** | 28.6\* | **69.49** |
+| MiniCPM-V-4.7-35B-A3B | 70.9 | 76.1 | 65.1 | 77.4 | 41.4 | 65.9 | **85.7** | 51.2 | **81.0** | 77.8 | 60.8 | **43.6** | 66.41 |
+| Qwen3-VL-32B-Instruct | 73.0 | **81.8** | 69.8 | 77.9 | 41.7 | **66.7** | 84.5 | 48.4 | 73.8 | 72.7 | 59.4 | 40.8 | 65.87 |
+| Qwen3-VL-30B-A3B | 70.0 | 76.2 | 61.9 | 76.1 | 40.2 | 64.5 | 84.0 | 48.7 | 75.4 | 70.9 | 51.2 | 40.8 | 63.33 |
+| InternVL3.5-30B-A3B | **77.5** | 77.7 | 70.3 | 72.8 | 38.4 | 60.8 | 83.0 | 45.8 | 70.2 | 66.1 | 51.4 | 36.4 | 62.55 |
+
+\* 65.2 when the word *before* in the captions is rephrased, see [Vinoground video and the word *before*](#vinoground-video-and-the-word-before).
+
+On text-only tasks ([lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness), six tasks) the model averages 67.8 against 73.4 for Qwen3-30B-A3B. It matches the base model on GSM8K (88.7 and 88.8) and is higher on MATH-hard (60.0 and 57.6).
+
+### Vinoground video and the word *before*
+
+Vinoground video shows two clips joined by black frames and asks which one matches a caption. 762 of its 1,000 items phrase the caption as "A before B". Our Qwen3-8B and Qwen3-30B-A3B models miss exactly these items. They read the same captions correctly on Vinoground text (87.5% and 84.8% item accuracy), and they solve the other 238 Vinoground video items as well as our 4B model does.
+
+We re-evaluated the 762 items with only the connective changed; videos, options and answers stay the same. On these items, pair accuracy rises from 21.8 to 69.8 for the 30B model and from 32.8 to 70.9 for the 8B model with "A, and later B", a wording that never appears in training. With "first A, then B" it reaches 75.9 and 74.3. Removing "before" / "after" from the answer options leaves both models where they were (23.1 and 32.0). The models therefore locate the segments and read the order of events; the failure is confined to the word *before* in this format.
+
+| Model | VG-V | VG-V\* ("A, and later B") | VG-V\* ("first A, then B") | Avg | Avg\* ("A, and later B") |
+|---|---:|---:|---:|---:|---:|
+| Llama-V-JEPA-LM-Qwen3-30B-A3B | 28.6 | 65.2 | 69.8 | 69.49 | 72.54 |
+| Llama-V-JEPA-LM-Qwen3-8B | 38.6 | 67.6 | 70.2 | 70.11 | 72.53 |
+| Llama-V-JEPA-LM-Qwen3-4B | 66.8 | 66.0 | 67.8 | 72.14 | 72.07 |
+| Llama-V-JEPA-LM-Llama3.1-8B | 63.0 | 59.2 | 67.8 | 70.51 | 70.19 |
+
+\* The 762 "A before B" items are replaced by their rephrased versions; the other 238 items are unchanged. Avg\* is the twelve-score average with that VG-V score. These numbers are a diagnosis, not benchmark results: every other table uses the benchmark's own wording, and the open models were not re-evaluated with the rephrased captions.
 
 ### Against Meta's V-JEPA video LLMs
 
@@ -153,12 +189,12 @@ Meta has not released these video LLMs, only the encoders, so their numbers are 
 - unseen mirror × reversal and acceleration × reversal combinations
 - camera motion from an unseen simulator
 
-| | Ours (1B–8B) | Open models (2B–8B) |
+| | Ours (1B–30B) | Open models (2B–35B) |
 |---|---:|---:|
-| Six held-out sets, average (chance 33.3) | **94.5–96.3** | 43.5–55.5 |
-| Unseen speed ratios (chance 33.3) | **97.8–99.3** | 32.2–39.3 |
+| Six held-out sets, average (chance 33.3) | **94.5–96.3** | 43.5–58.3 |
+| Unseen speed ratios (chance 33.3) | **97.8–99.3** | 32.2–42.2 |
 
-**Successive playback.** This test plays the same clip twice in a row, a short central span and the full span, in either order, so the motion speeds up or slows down halfway through. The construction is never used for speed in training. Our models score **92.5–99.2**, against 19.4–51.9 for open models.
+**Successive playback.** This test plays the same clip twice in a row, a short central span and the full span, in either order, so the motion speeds up or slows down halfway through. The construction is never used for speed in training. Our 1B–8B models score **92.5–99.2**, against 19.4–51.9 for open models of 2B–8B.
 
 ### Inference
 
@@ -172,6 +208,7 @@ All times are per 32-frame clip on one H100 (batch 1, bf16).
 | Llama-V-JEPA-LM-Qwen3-4B | 1,024 | 8.6 | 167 | 168 |
 | Llama-V-JEPA-LM-Llama3.1-8B | 1,024 | 16.2 | 175 | 175 |
 | Llama-V-JEPA-LM-Qwen3-8B | 1,024 | 15.8 | 182 | 182 |
+| Llama-V-JEPA-LM-Qwen3-30B-A3B | 1,024 | 6.9 | 276 | 277 |
 
 The visual-token count, and with it the language model's cost, does not depend on the input resolution. The model cards compare these costs with open models of the same size.
 
@@ -225,12 +262,12 @@ See each model card for installation, memory requirements, frame sampling, segme
 | `llama_vjepa_lm/vjepa2_1_encoder.py` | inference-only V-JEPA 2.1 encoder, adapted from [facebookresearch/vjepa2](https://github.com/facebookresearch/vjepa2) (MIT, `LICENSE_VJEPA2`) |
 | `requirements.txt` | tested package versions |
 
-The Hugging Face repositories load the same files through `trust_remote_code=True`. One code version serves all six models: the encoder size, bridge width and language model are read from each model's config. Training code, the counterfactual data generator and the training manifests will be added to this repository.
+The Hugging Face repositories load the same files through `trust_remote_code=True`. One code version serves all seven models: the encoder size, bridge width and language model are read from each model's config. Training code, the counterfactual data generator and the training manifests will be added to this repository.
 
 ## 8. Scope and limitations
 
 - **Single images and text in frames.** V-JEPA 2.1 is trained only on video, to predict masked spatiotemporal regions in latent space. It is never trained to align with text or to read it. Text recognition (OCR, documents, charts, slides) and single-image question answering are therefore outside what the encoder was built for, and they are not the target of this work. These models are built for how scenes change over time. For text-heavy or single-image tasks, an image–text encoder is the natural choice.
-- **Long videos.** We target clip-level understanding of dynamics, 32 frames per clip. Hour-scale long-video benchmarks need many clips per video and far longer contexts, in training as well as at inference. At the scale of this release (1B–8B, one training stage of 229–648 H100-hours), that training cost is impractical, so we did not train or evaluate for it. For a long video, `start_sec` / `end_sec` select the segment to ask about.
+- **Long videos.** We target clip-level understanding of dynamics, 32 frames per clip. Hour-scale long-video benchmarks need many clips per video and far longer contexts, in training as well as at inference. At the scale of this release (1B–30B, one training stage of 229–792 H100-hours), that training cost is impractical, so we did not train or evaluate for it. For a long video, `start_sec` / `end_sec` select the segment to ask about.
 
 ## 9. Licence and naming
 

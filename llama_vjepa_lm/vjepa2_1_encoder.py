@@ -413,4 +413,15 @@ def vjepa2_1_vit_large_384(**kw):
     return VisionTransformer(**args)
 
 
-VARIANTS = {"vit_giant_384": vjepa2_1_vit_giant_384, "vit_large_384": vjepa2_1_vit_large_384}
+def vjepa2_1_vit_gigantic_384(**kw):
+    """The encoder of `vjepa2_1_vit_gigantic_384` (checkpoint vjepa2_1_vitG_384.pt, key target_encoder): ViT-G/16 with 26
+    heads ("xformers" layout), RoPE with interpolation, 384 x 384 input, tubelet 2, 4 output levels."""
+    args = dict(patch_size=16, img_size=(384, 384), num_frames=64, tubelet_size=2, use_sdpa=True, uniform_power=False,
+                use_rope=True, img_temporal_dim_size=1, interpolate_rope=True, embed_dim=1664, depth=48, num_heads=26,
+                mlp_ratio=64 / 13, qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6), n_output_distillation=4)
+    args.update(kw)
+    return VisionTransformer(**args)
+
+
+VARIANTS = {"vit_giant_384": vjepa2_1_vit_giant_384, "vit_large_384": vjepa2_1_vit_large_384,
+            "vit_gigantic_384": vjepa2_1_vit_gigantic_384}
