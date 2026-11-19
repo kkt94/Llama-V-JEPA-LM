@@ -1,0 +1,12 @@
+{#- (10-31) dual mode for Qwen3-4B-Instruct-2507 (no native thinking): as qwen3_dual.jinja, but the no-think path is EXACTLY
+    qwen3_instruct.jinja (no empty think block); thinking iff enable_thinking=true or (when not given) the last user turn carries
+    "Think step by step" -> the assistant turn starts with "<think>\n" (prompt side) -#}
+{%- set ns = namespace(think=false) -%}
+{%- for message in messages -%}
+{%- if message['role'] == 'user' -%}{%- set ns.think = ('Think step by step' in message['content']) -%}{%- endif -%}
+{%- if enable_thinking is defined -%}{%- set ns.think = enable_thinking -%}{%- endif -%}
+{{- '<|im_start|>' + message['role'] + '\n' -}}
+{%- if message['role'] == 'assistant' and ns.think -%}{{- '<think>\n' -}}{%- endif -%}
+{{- message['content'] + '<|im_end|>\n' -}}
+{%- endfor -%}
+{%- if add_generation_prompt -%}{{- '<|im_start|>assistant\n' + ('<think>\n' if ns.think else '') -}}{%- endif -%}

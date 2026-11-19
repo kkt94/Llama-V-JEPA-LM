@@ -1,0 +1,883 @@
+# (11-10) mxl1b_Q: mx2b_nodyn_Q with the LLM = Llama-3.2-1B-Instruct, own template, strip_think, own text replay, 28 x 6 (logs/zz_make_mxl1b_cfg.py)
+data:
+  augment:
+    jitter: 1.0
+  cells: 8
+  max_len: 2560
+  num_frames: 32
+  pair_gap_sec: 0.25
+  sampling: uniform
+  sources:
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__llava.parquet
+    name: llava
+    prep_root: /data/llama_vjepa_lm/prep/llava_384_15fps
+    weight: 0.068467
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__sharegpt.parquet
+    name: sharegpt
+    prep_root: /data/llama_vjepa_lm/prep/sharegpt_2fps
+    weight: 0.06928
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__ssv2.parquet
+    name: ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.031135
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/stage1__language_table.parquet
+    name: language_table
+    prep_root: /data/llama_vjepa_lm/prep/language_table_train
+    weight: 0.023662
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/plausibility.parquet
+    name: plausibility
+    prep_root: /data/llama_vjepa_lm/prep/plausibility
+    weight: 0.006109
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/stage1__clevrer.parquet
+    name: clevrer
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.016183
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/stage1__nvidia_state.parquet
+    name: nvidia_state
+    prep_root: /data/llama_vjepa_lm/prep/nvidia_rgb_384
+    weight: 0.014271
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/stage1__nvidia_groups_qa.parquet
+    name: nvidia_groups_qa
+    prep_root: /data/llama_vjepa_lm/prep/nvidia_rgb_384
+    weight: 0.011309
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/stage1__sav_tracks_qa.parquet
+    name: sav_tracks_qa
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.019336
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/plm_rtloc.parquet
+    name: plm_rtloc
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.012474
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/pt_train_mc.parquet
+    name: pt_train_mc
+    prep_root: /data/llama_vjepa_lm/prep/pt_train_384
+    weight: 0.004542
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/rspeed_ssv2.parquet
+    name: tq4_rspeed_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.002785
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/rspeed_sav.parquet
+    name: tq4_rspeed_sav
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.001671
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/dspeed_ssv2.parquet
+    name: tq4_dspeed_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.002785
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/dspeed_sav.parquet
+    name: tq4_dspeed_sav
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.001671
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/odir_ssv2.parquet
+    name: tq4_odir_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001496
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/cdir_ssv2.parquet
+    name: tq4_cdir_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.000547
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/dir2_ssv2.parquet
+    name: tq4_dir2_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.000669
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/order_ssv2.parquet
+    name: tq4_order_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.002752
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/order_llava.parquet
+    name: tq4_order_llava
+    prep_root: /data/llama_vjepa_lm/prep/llava_384_15fps
+    weight: 0.001856
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/state_ssv2.parquet
+    name: tq4_state_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.002289
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/cnat_sav.parquet
+    name: tq4_cnat_sav
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.00076
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/tq4/order_nat.parquet
+    name: tq4_order_nat
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.001454
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__fgqa.parquet
+    name: fgqa
+    prep_root: /data/llama_vjepa_lm/prep/fgqa_384_15fps
+    weight: 0.012738
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/vcf/anet_hl.parquet
+    name: vcf_anet_hl
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/timeaware_subset/grounding_ANetHL-ANet-HL-ANet_HL2_11k
+    weight: 0.002971
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/vcf__anet_rtl.parquet
+    name: vcf_anet_rtl
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/x/timeit_ANet
+    weight: 0.009224
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/vcf/ego_qa.parquet
+    name: vcf_ego_qa
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/shortvideo_subset/vqa_ego_qa-ego_qa-train_8k
+    weight: 0.002393
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/vcf/lsmdc.parquet
+    name: vcf_lsmdc
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/shortvideo_subset/lsmdc-lsmdc_297k
+    weight: 0.003446
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/clean1027/vcf_timeit_anet.parquet
+    name: vcf_timeit_anet
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/x/timeit_ANet
+    weight: 0.002897
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__vcf_timeit_coin.parquet
+    name: vcf_timeit_coin
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/x/coin
+    weight: 0.002426
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/vcf__timeit_didemo.parquet
+    name: vcf_timeit_didemo
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/x/timeit_DiDeMo
+    weight: 0.010014
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__vcf_timeit_hirest.parquet
+    name: vcf_timeit_hirest
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/timeaware_subset/timeit_HiREST-TimeIT-HiREST_1k
+    weight: 0.000257
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__vcf_timeit_queryd.parquet
+    name: vcf_timeit_queryd
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/timeaware_subset/timeit_QuerYD-TimeIT-QuerYD_15k
+    weight: 0.001663
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/clean1027/vcf_vidln_oops.parquet
+    name: vcf_vidln_oops
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/x/vidln_oops
+    weight: 0.003284
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/vcf__youcook2.parquet
+    name: vcf_youcook2
+    prep_root: /data/llama_vjepa_lm/data/VideoChat-Flash/shortvideo_subset/caption_youcook2-youcook2-train_debug_9k
+    weight: 0.002651
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/anetqa.parquet
+    name: anetqa
+    prep_root: /data/llama_vjepa_lm/prep/llava_384_15fps
+    weight: 0.004752
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/clean1027/vidln_uvo.parquet
+    name: vidln_uvo
+    prep_root: /
+    weight: 0.001921
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/vidln_ovis.parquet
+    name: vidln_ovis
+    prep_root: /
+    weight: 0.000187
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__htstep.parquet
+    name: htstep
+    prep_root: /
+    weight: 0.001186
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/mx2b_brief/clean1027__rcap.parquet
+    name: rcap
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.020021
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/clean1027/rdcap.parquet
+    name: rdcap
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.015842
+  - manifest: /data/llama_vjepa_lm/manifests/stage1/star_train.parquet
+    name: star_train
+    prep_root: /
+    weight: 0.002495
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/chego_act.parquet
+    name: chego_act
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.009592
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/chego_order.parquet
+    name: chego_order
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.001397
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/chego_rev.parquet
+    name: chego_rev
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.002578
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/chego_scene.parquet
+    name: chego_scene
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.000935
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/chego_obj.parquet
+    name: chego_obj
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.000947
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/epic_act.parquet
+    name: epic_act
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.00076
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/epic_noun.parquet
+    name: epic_noun
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000385
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/epic_order.parquet
+    name: epic_order
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 7.9e-05
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/epic_rev.parquet
+    name: epic_rev
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000524
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/k700_act.parquet
+    name: k700_act
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.024733
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/countfix_1025/countix.parquet
+    name: countix
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.001038
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl_frozen_1024_1923/ssv2_obj.parquet
+    name: ssv2_obj
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.012915
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl2_frozen_1024_1923/ssv2_real.parquet
+    name: ssv2_real
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.004812
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/countfix_1025/ssv2_count.parquet
+    name: ssv2_count
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.000565
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl2_frozen_1024_1923/chego_done.parquet
+    name: chego_done
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.002406
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl2_frozen_1024_1923/chego_state.parquet
+    name: chego_state
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.000673
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl2_frozen_1024_1923/ssv2_color.parquet
+    name: ssv2_color
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001284
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/epic_seq.parquet
+    name: epic_seq
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.00491
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/chego_seq.parquet
+    name: chego_seq
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.000652
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/epic_turn.parquet
+    name: epic_turn
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.006301
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/camera_clevrer.parquet
+    name: camera_clevrer
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.000768
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/camera_chexo.parquet
+    name: camera_chexo
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.000603
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/holo_fine.parquet
+    name: holo_fine
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.018984
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/holo_seq.parquet
+    name: holo_seq
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.007443
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/holo_mist.parquet
+    name: holo_mist
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.00162
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/holo_task.parquet
+    name: holo_task
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.001021
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/egocam_mc__epic.parquet
+    name: egocam_mc_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000459
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/egocam_yn__epic.parquet
+    name: egocam_yn_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000317
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_after__chego.parquet
+    name: fmt_after_chego
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.001067
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_after__epic.parquet
+    name: fmt_after_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000317
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_after__holo.parquet
+    name: fmt_after_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.002043
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_before__chego.parquet
+    name: fmt_before_chego
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.001135
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_before__epic.parquet
+    name: fmt_before_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000309
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_before__holo.parquet
+    name: fmt_before_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.002027
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_breakdown__chego.parquet
+    name: fmt_breakdown_chego
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 4.8e-05
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_breakdown__epic.parquet
+    name: fmt_breakdown_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000302
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_breakdown__holo.parquet
+    name: fmt_breakdown_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.001965
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_caption__chego.parquet
+    name: fmt_caption_chego
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.001139
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_caption__epic.parquet
+    name: fmt_caption_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000319
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_caption__holo.parquet
+    name: fmt_caption_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.002043
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_yn__chego.parquet
+    name: fmt_yn_chego
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.001198
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_yn__epic.parquet
+    name: fmt_yn_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.00025
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/fmt_yn__holo.parquet
+    name: fmt_yn_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.001624
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/next_action__holo.parquet
+    name: next_action_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.001851
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/next_turn__epic.parquet
+    name: next_turn_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000307
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/robo_afford__holo.parquet
+    name: robo_afford_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.005356
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/robo_done__egodex.parquet
+    name: robo_done_egodex
+    prep_root: /data/llama_vjepa_lm/prep/egodex_384_15fps
+    weight: 0.001301
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/robo_done__holo.parquet
+    name: robo_done_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.000663
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/robo_subtask__holo.parquet
+    name: robo_subtask_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.001623
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/robo_success__egodex.parquet
+    name: robo_success_egodex
+    prep_root: /data/llama_vjepa_lm/prep/egodex_384_15fps
+    weight: 0.001935
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/robo_success__holo.parquet
+    name: robo_success_holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.001011
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/phys_collide.parquet
+    name: phys_collide
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.001525
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/phys_fastest.parquet
+    name: phys_fastest
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.000627
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/phys_first.parquet
+    name: phys_first
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.000981
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/phys_moving.parquet
+    name: phys_moving
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.001101
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/phys_predict.parquet
+    name: phys_predict
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.000539
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/nv_fall.parquet
+    name: nv_fall
+    prep_root: /data/llama_vjepa_lm/prep/nvidia_rgb_384
+    weight: 8.5e-05
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/nv_move.parquet
+    name: nv_move
+    prep_root: /data/llama_vjepa_lm/prep/nvidia_rgb_384
+    weight: 3.6e-05
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/nv_side.parquet
+    name: nv_side
+    prep_root: /data/llama_vjepa_lm/prep/nvidia_rgb_384
+    weight: 0.000112
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/vino_seg.parquet
+    name: vino_seg
+    prep_root: /
+    weight: 0.003113
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/loc_nat.parquet
+    name: loc_nat
+    prep_root: /
+    weight: 0.003173
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/loc_comp.parquet
+    name: loc_comp
+    prep_root: /
+    weight: 0.003641
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/rep_loop.parquet
+    name: rep_loop
+    prep_root: /
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_bincap__language_table.parquet
+    name: v15_bincap_language_table
+    prep_root: /data/llama_vjepa_lm/prep/language_table_train
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_bincap__ssv2.parquet
+    name: v15_bincap_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_half__k700_act.parquet
+    name: v15_half_k700_act
+    prep_root: /
+    weight: 0.000917
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_mcn__k700_act.parquet
+    name: v15_mcn_k700_act
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_mcn__language_table.parquet
+    name: v15_mcn_language_table
+    prep_root: /data/llama_vjepa_lm/prep/language_table_train
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_mcn__ssv2.parquet
+    name: v15_mcn_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_mcn__ssv2_obj.parquet
+    name: v15_mcn_ssv2_obj
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_ndistinct__k700_act.parquet
+    name: v15_ndistinct_k700_act
+    prep_root: /
+    weight: 0.001809
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_open__k700_act.parquet
+    name: v15_open_k700_act
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_open__language_table.parquet
+    name: v15_open_language_table
+    prep_root: /data/llama_vjepa_lm/prep/language_table_train
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_open__ssv2_obj.parquet
+    name: v15_open_ssv2_obj
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001843
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_whichseg__k700_act.parquet
+    name: v15_whichseg_k700_act
+    prep_root: /
+    weight: 0.000915
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_yn__k700_act.parquet
+    name: v15_yn_k700_act
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.001837
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_yn__language_table.parquet
+    name: v15_yn_language_table
+    prep_root: /data/llama_vjepa_lm/prep/language_table_train
+    weight: 0.001831
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_yn__ssv2.parquet
+    name: v15_yn_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001839
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v15_yn__ssv2_obj.parquet
+    name: v15_yn_ssv2_obj
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001836
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/egodex_sel.parquet
+    name: egodex_sel
+    prep_root: /data/llama_vjepa_lm/prep/egodex_384_15fps
+    weight: 0.051772
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/rvqa_afford.parquet
+    name: rvqa_afford
+    prep_root: /data/llama_vjepa_lm/data/opendl/robovqa/clips
+    weight: 0.010766
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/rvqa_future.parquet
+    name: rvqa_future
+    prep_root: /data/llama_vjepa_lm/data/opendl/robovqa/clips
+    weight: 0.003072
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/rvqa_past.parquet
+    name: rvqa_past
+    prep_root: /data/llama_vjepa_lm/data/opendl/robovqa/clips
+    weight: 0.003072
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/rvqa_plan.parquet
+    name: rvqa_plan
+    prep_root: /data/llama_vjepa_lm/data/opendl/robovqa/clips
+    weight: 0.004608
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/rvqa_success.parquet
+    name: rvqa_success
+    prep_root: /data/llama_vjepa_lm/data/opendl/robovqa/clips
+    weight: 0.01043
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_cam_mb__camera_chexo.parquet
+    name: v16_cam_mb__camera_chexo
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.000563
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_cam_mb__camera_clevrer.parquet
+    name: v16_cam_mb__camera_clevrer
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.000716
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_cam_mb__egocam_mc_epic.parquet
+    name: v16_cam_mb__egocam_mc_epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.000453
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_loc_tv__loc_comp.parquet
+    name: v16_loc_tv__loc_comp
+    prep_root: /
+    weight: 0.001959
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_loc_tv__loc_nat.parquet
+    name: v16_loc_tv__loc_nat
+    prep_root: /
+    weight: 0.001529
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_rep6__rep_loop.parquet
+    name: v16_rep6__rep_loop
+    prep_root: /
+    weight: 0.001818
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_rspeed_w__tq4_rspeed_sav.parquet
+    name: v16_rspeed_w__tq4_rspeed_sav
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.001217
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_rspeed_w__tq4_rspeed_ssv2.parquet
+    name: v16_rspeed_w__tq4_rspeed_ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.001224
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v16/v16_tempo__epic.parquet
+    name: v16_tempo__epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.001811
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_capbin__epic.parquet
+    name: v17_capbin__epic
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.001514
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_capbin__holo.parquet
+    name: v17_capbin__holo
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.004612
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_finemotion_dir__ssv2.parquet
+    name: v17_finemotion_dir__ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.003282
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_finemotion_speed__ssv2.parquet
+    name: v17_finemotion_speed__ssv2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.002673
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_oops_half.parquet
+    name: v17_oops_half
+    prep_root: /
+    weight: 0.000879
+  - jitter: 0.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_oops_loc3.parquet
+    name: v17_oops_loc3
+    prep_root: /
+    weight: 0.001175
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_order2__charades.parquet
+    name: v17_order2__charades
+    prep_root: /data/llama_vjepa_lm/prep/charades_384_15fps
+    weight: 0.003167
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_pose_mc__charades.parquet
+    name: v17_pose_mc__charades
+    prep_root: /data/llama_vjepa_lm/prep/charades_384_15fps
+    weight: 0.001018
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_pose_open__charades.parquet
+    name: v17_pose_open__charades
+    prep_root: /data/llama_vjepa_lm/prep/charades_384_15fps
+    weight: 0.000389
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/opendl3/v17/v17_pose_yn__charades.parquet
+    name: v17_pose_yn__charades
+    prep_root: /data/llama_vjepa_lm/prep/charades_384_15fps
+    weight: 0.001029
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/v20/v20_lcap__kin.parquet
+    name: v20_lcap__kin
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700/train
+    weight: 0.00447
+  - jitter: 1.0
+    manifest: /data/llama_vjepa_lm/manifests/stage1/v20/v20_lcap__charades.parquet
+    name: v20_lcap__charades
+    prep_root: /data/llama_vjepa_lm/prep/charades_384_15fps
+    weight: 3.0e-05
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_abs.parquet
+    name: mxF_fullans_abs
+    prep_root: /
+    weight: 0.005287
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_videos_cropped.parquet
+    name: mxF_fullans_videos_cropped
+    prep_root: /data/llama_vjepa_lm/bench/Video-Holmes/videos_cropped
+    weight: 0.002851
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_20bn_something_something_v2.parquet
+    name: mxF_fullans_20bn_something_something_v2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.04649
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_video_train.parquet
+    name: mxF_fullans_video_train
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.004272
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_charadesego_v1_480.parquet
+    name: mxF_fullans_charadesego_v1_480
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.019648
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_kinetics700.parquet
+    name: mxF_fullans_kinetics700
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.006475
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_epic_384_15fps.parquet
+    name: mxF_fullans_epic_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.024141
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_holoassist_384_15fps.parquet
+    name: mxF_fullans_holoassist_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.025426
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_nvidia_rgb_384.parquet
+    name: mxF_fullans_nvidia_rgb_384
+    prep_root: /data/llama_vjepa_lm/prep/nvidia_rgb_384
+    weight: 0.000908
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_plausibility.parquet
+    name: mxF_fullans_plausibility
+    prep_root: /data/llama_vjepa_lm/prep/plausibility
+    weight: 0.001082
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_pt_train_384.parquet
+    name: mxF_fullans_pt_train_384
+    prep_root: /data/llama_vjepa_lm/prep/pt_train_384
+    weight: 0.00596
+  - manifest: /data/llama_vjepa_lm/runs/cot/train4/fullans_sav_384_24fps.parquet
+    name: mxF_fullans_sav_384_24fps
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.007459
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotA_20bn_something_something_v2.parquet
+    name: mxA_cotA_20bn_something_something_v2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.036738
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotA_charadesego_v1_480.parquet
+    name: mxA_cotA_charadesego_v1_480
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.016277
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotA_kinetics700.parquet
+    name: mxA_cotA_kinetics700
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.001584
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotA_epic_384_15fps.parquet
+    name: mxA_cotA_epic_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.010002
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotA_holoassist_384_15fps.parquet
+    name: mxA_cotA_holoassist_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.019558
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotA_sav_384_24fps.parquet
+    name: mxA_cotA_sav_384_24fps
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.00584
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotB_20bn_something_something_v2.parquet
+    name: mxB_cotB_20bn_something_something_v2
+    prep_root: /data/llama_vjepa_lm/bench/mvp_sources/extracted/ssv2/20bn-something-something-v2
+    weight: 0.008062
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotB_charadesego_v1_480.parquet
+    name: mxB_cotB_charadesego_v1_480
+    prep_root: /data/llama_vjepa_lm/data/opendl/charades_ego/CharadesEgo_v1_480
+    weight: 0.003329
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotB_kinetics700.parquet
+    name: mxB_cotB_kinetics700
+    prep_root: /data/llama_vjepa_lm/data/opendl/kinetics700
+    weight: 0.000326
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotB_epic_384_15fps.parquet
+    name: mxB_cotB_epic_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/epic_384_15fps
+    weight: 0.002737
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotB_holoassist_384_15fps.parquet
+    name: mxB_cotB_holoassist_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/holoassist_384_15fps
+    weight: 0.004334
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotB_sav_384_24fps.parquet
+    name: mxB_cotB_sav_384_24fps
+    prep_root: /data/llama_vjepa_lm/prep/sav_384_24fps
+    weight: 0.001212
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotC_video_train.parquet
+    name: mxC_cotC_video_train
+    prep_root: /data/llama_vjepa_lm/data/clevrer/video_train
+    weight: 0.001838
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotC_llava_384_15fps.parquet
+    name: mxC_cotC_llava_384_15fps
+    prep_root: /data/llama_vjepa_lm/prep/llava_384_15fps
+    weight: 0.036665
+  - manifest: /data/llama_vjepa_lm/runs/cot/train3/cotC_pt_train_384.parquet
+    name: mxC_cotC_pt_train_384
+    prep_root: /data/llama_vjepa_lm/prep/pt_train_384
+    weight: 0.001497
+  strip_think: true
+  workers: 8
+loss:
+  lambda_dyn: 0.0
+  lambda_state: 0.0
+  margin_unit: sum
+  seg_norm: 1.184202
+  textonly_data:
+    every: 2
+    max_len: 0
+    parquet: /data/llama_vjepa_lm/manifests/textonly/ultrachat_selfgen_llama32_1b_instruct.parquet
+    per_gpu: 2
+    weight: 0.3
+model:
+  bridge_hidden: 2048
+  chat_template: /data/llama_vjepa_lm/training/configs/templates/llama32_instruct.jinja
+  llm: /data/llama_vjepa_lm/models/Llama-3.2-1B-Instruct
+  llm_compile: true
+  spectral:
+    alpha: 0.0
+    k: 1024
+    mode: mlp
+    stats: /data/llama_vjepa_lm/runs/whiten_vitl_dist/vitg1b_vitl_dist.pt
+  surprise_segments: 0
+  train_vision: none
+  vision: vitl_dist
+  vision_compile: true
+  vision_dtype: bf16
+optim:
+  batch_per_gpu: 6
+  clip: 1.0
+  grad_accum: 1
+  llm_start_frac: 0.005565
+  lr_llm: 1.05e-05
+  lr_new: 0.0002
+  max_steps: 27382
+  vision_start_frac: 0.0
+  warmup_frac: 0.002226
+  wd_llm: 0.01
+  wd_new: 0.05
+run:
+  activation_checkpointing: true
+  checkpoint_every: 2
+  fsdp_reshard: false
+  log_every: 10
+  out_dir: /data/llama_vjepa_lm/runs/mxl1b_Q
+  save_every: 1000
+  seed: 0

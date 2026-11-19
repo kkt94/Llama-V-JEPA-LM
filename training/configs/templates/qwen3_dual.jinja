@@ -1,0 +1,12 @@
+{#- (10-30) dual mode: thinking iff enable_thinking=true, or (when not given) the last user turn carries the CoT instruction
+    "Think step by step"; thinking -> the assistant turn starts with "<think>\n" (prompt side), otherwise with the empty block
+    "<think>\n\n</think>\n\n" exactly as qwen3_nothink.jinja (so the no-think path is unchanged); assistant content is never prefixed itself -#}
+{%- set ns = namespace(think=false) -%}
+{%- for message in messages -%}
+{%- if message['role'] == 'user' -%}{%- set ns.think = ('Think step by step' in message['content']) -%}{%- endif -%}
+{%- if enable_thinking is defined -%}{%- set ns.think = enable_thinking -%}{%- endif -%}
+{{- '<|im_start|>' + message['role'] + '\n' -}}
+{%- if message['role'] == 'assistant' -%}{{- '<think>\n' if ns.think else '<think>\n\n</think>\n\n' -}}{%- endif -%}
+{{- message['content'] + '<|im_end|>\n' -}}
+{%- endfor -%}
+{%- if add_generation_prompt -%}{{- '<|im_start|>assistant\n' + ('<think>\n' if ns.think else '<think>\n\n</think>\n\n') -}}{%- endif -%}

@@ -261,8 +261,9 @@ See each model card for installation, memory requirements, frame sampling, segme
 | `llama_vjepa_lm/configuration_jepa_llm.py` | the config class |
 | `llama_vjepa_lm/vjepa2_1_encoder.py` | inference-only V-JEPA 2.1 encoder, adapted from [facebookresearch/vjepa2](https://github.com/facebookresearch/vjepa2) (MIT, `LICENSE_VJEPA2`) |
 | `requirements.txt` | tested package versions |
+| [`training/`](training/README.md) | training, evaluation and data code: the model, the one-stage trainer, the evaluation harness for our models and the open baselines, download and preprocessing scripts, and the generators of every training source, including the counterfactual constructions |
 
-The Hugging Face repositories load the same files through `trust_remote_code=True`. One code version serves all seven models: the encoder size, bridge width and language model are read from each model's config. Training code, the counterfactual data generator and the training manifests will be added to this repository.
+The Hugging Face repositories load the same files through `trust_remote_code=True`. One code version serves all seven models: the encoder size, bridge width and language model are read from each model's config. [`training/README.md`](training/README.md) maps each released model to its config and walks through download, preprocessing, manifest building, training and evaluation; `training/DATA_PROVENANCE.tsv` lists the scripts that built each of the 175 training sources.
 
 ## 8. Scope and limitations
 
